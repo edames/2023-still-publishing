@@ -1,4 +1,8 @@
-import { Image as SitecoreImage, ImageField, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import {
+  Image as SitecoreImage,
+  ImageField,
+  withDatasourceCheck
+} from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
 
 type ImageProps = ComponentProps & {
