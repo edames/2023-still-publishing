@@ -6,7 +6,7 @@
   "config": {
     "appName": "stillpublishing-app",
     "rootPlaceholders": [
-      "jss-main"
+      "headless-main"
     ],
     "sitecoreConfigPath": "/App_Config/Include/zzz",
     "graphQLEndpointPath": "/sitecore/api/graph/edge",
