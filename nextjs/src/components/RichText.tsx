@@ -1,27 +1,29 @@
-import {
-  RichText as SitecoreRichText,
-  withDatasourceCheck,
-  RichTextField,
-} from '@sitecore-jss/sitecore-jss-nextjs';
-import { ComponentProps } from 'lib/component-props';
+import React from 'react';
+import { Field, RichText as JssRichText } from '@sitecore-jss/sitecore-jss-nextjs';
 
-type RichTextProps = ComponentProps & {
-  fields: {
-    Text: RichTextField;
-  };
+interface Fields {
+  Text: Field<string>;
+}
+
+export type RichTextProps = {
+  params: { [key: string]: string };
+  fields: Fields;
 };
 
-/**
- * A simple Content Block component, with a heading and rich text block.
- * This is the most basic building block of a content site, and the most basic
- * JSS component that's useful.
- */
-const RichText: React.FC<RichTextProps> = (props) => {
+export const Default = (props: RichTextProps): JSX.Element => {
+  const text = props.fields ? (
+    <JssRichText field={props.fields.Text} />
+  ) : (
+    <span className="is-empty-hint">Rich text</span>
+  );
+  const id = props.params.RenderingIdentifier;
+
   return (
-    <div className="richText">
-      <SitecoreRichText field={props.fields.Text} />
+    <div
+      className={`component rich-text ${props.params.styles.trimEnd()}`}
+      id={id ? id : undefined}
+    >
+      <div className="component-content">{text}</div>
     </div>
   );
 };
-
-export default withDatasourceCheck()<RichTextProps>(RichText);

@@ -1,33 +1,97 @@
+import React from 'react';
 import {
+  Link,
   Text,
-  withSitecoreContext,
-  ComponentConsumerProps,
-  Field,
+  useSitecoreContext,
+  LinkField,
+  TextField,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 
-type TitleProps = ComponentConsumerProps & {
-  fields: {
-    data: {
-      contextItem: {
-        field: {
-          jsonValue: Field<string>;
+interface Fields {
+  data: {
+    datasource: {
+      url: {
+        path: string;
+        siteName: string;
+      };
+      field: {
+        jsonValue: {
+          value: string;
+          editable: string;
+        };
+      };
+    };
+    contextItem: {
+      url: {
+        path: string;
+        siteName: string;
+      };
+      field: {
+        jsonValue: {
+          value: string;
+          editable: string;
         };
       };
     };
   };
+}
+
+type TitleProps = {
+  params: { [key: string]: string };
+  fields: Fields;
 };
 
-/**
- * A simple Content Block component, with a heading and rich text block.
- * This is the most basic building block of a content site, and the most basic
- * JSS component that's useful.
- */
-const Title: React.FC<TitleProps> = ({ fields }) => {
+type ComponentContentProps = {
+  id: string;
+  styles: string;
+  children: JSX.Element;
+};
+
+const ComponentContent = (props: ComponentContentProps) => {
+  const id = props.id;
   return (
-    <div className="titleBlock">
-      <Text tag="h2" className="contentTitle" field={fields.data.contextItem.field.jsonValue} />
+    <div className={`component title ${props.styles}`} id={id ? id : undefined}>
+      <div className="component-content">
+        <div className="field-title">{props.children}</div>
+      </div>
     </div>
   );
 };
 
-export default withSitecoreContext()(Title);
+export const Default = (props: TitleProps): JSX.Element => {
+  const datasource = props.fields?.data?.datasource || props.fields?.data?.contextItem;
+  const { sitecoreContext } = useSitecoreContext();
+
+  const text: TextField = {
+    value: datasource?.field?.jsonValue?.value,
+    editable: datasource?.field?.jsonValue?.editable,
+  };
+  const link: LinkField = {
+    value: {
+      href: datasource?.url?.path,
+      title: datasource?.field?.jsonValue?.value,
+      editable: true,
+    },
+  };
+  if (sitecoreContext.pageState !== 'normal') {
+    link.value.querystring = `sc_site=${datasource?.url?.siteName}`;
+    if (!text.value) {
+      text.value = 'Title field';
+      link.value.href = '#';
+    }
+  }
+
+  return (
+    <ComponentContent styles={props.params.styles} id={props.params.RenderingIdentifier}>
+      <>
+        {sitecoreContext.pageState === 'edit' ? (
+          <Text field={text} />
+        ) : (
+          <Link field={link}>
+            <Text field={text} />
+          </Link>
+        )}
+      </>
+    </ComponentContent>
+  );
+};
