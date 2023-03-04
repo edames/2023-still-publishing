@@ -11,9 +11,9 @@ type TitleProps = ComponentConsumerProps & {
       contextItem: {
         field: {
           jsonValue: Field<string>;
-        }
-      }
-    }
+        };
+      };
+    };
   };
 };
 
