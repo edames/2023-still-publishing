@@ -1,9 +1,14 @@
-import { Text, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
-import { ComponentProps } from 'lib/component-props';
+import { Text, withSitecoreContext, ComponentConsumerProps, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 
-type TitleProps = ComponentProps & {
+type TitleProps = ComponentConsumerProps & {
   fields: {
-    Title: Field<string>;
+    data: {
+      contextItem: {
+        field: {
+          jsonValue: Field<string>;
+        }
+      }
+    }
   };
 };
 
@@ -12,10 +17,12 @@ type TitleProps = ComponentProps & {
  * This is the most basic building block of a content site, and the most basic
  * JSS component that's useful.
  */
-const Title = ({ fields }: TitleProps): JSX.Element => (
-  <div className="titleBlock">
-    <Text tag="h2" className="contentTitle" field={fields.Title} />
-  </div>
-);
+const Title: React.FC<TitleProps> = ({ fields }) => {
+  return (
+    <div className="titleBlock">
+      <Text tag="h2" className="contentTitle" field={fields.data.contextItem.field.jsonValue} />
+    </div>
+  );
+};
 
-export default withDatasourceCheck()<TitleProps>(Title);
+export default withSitecoreContext()(Title);
