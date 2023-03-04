@@ -1,4 +1,9 @@
-import { Text, withSitecoreContext, ComponentConsumerProps, Field } from '@sitecore-jss/sitecore-jss-nextjs';
+import {
+  Text,
+  withSitecoreContext,
+  ComponentConsumerProps,
+  Field,
+} from '@sitecore-jss/sitecore-jss-nextjs';
 
 type TitleProps = ComponentConsumerProps & {
   fields: {

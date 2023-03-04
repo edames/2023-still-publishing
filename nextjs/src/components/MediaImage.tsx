@@ -30,7 +30,7 @@ const MediaImage: React.FC<ImageProps> = (props) => {
     <div className="image">
       <Image field={props.fields.Image} />
       <SitecoreRichText field={props.fields.ImageCaption} />
-    </div>  
+    </div>
   );
 };
 
