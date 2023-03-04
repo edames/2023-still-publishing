@@ -36,10 +36,12 @@ const Layout = ({ layoutData }: LayoutProps): JSX.Element => {
       </Head>
 
       <Navigation />
+      <div>{route && <Placeholder name="headless-header" rendering={route} />}</div>
       {/* root placeholder for the app, which we add components to using route data */}
       <div className="container">
         {route && <Placeholder name="headless-main" rendering={route} />}
       </div>
+      <div>{route && <Placeholder name="headless-footer" rendering={route} />}</div>
     </>
   );
 };
