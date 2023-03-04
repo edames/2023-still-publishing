@@ -1,9 +1,9 @@
-import { ImageField, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Image as SitecoreImage, ImageField, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
 
 type ImageProps = ComponentProps & {
   fields: {
-    image: ImageField;
+    Image: ImageField;
   };
 };
 
@@ -14,7 +14,7 @@ type ImageProps = ComponentProps & {
  */
 const Image = ({ fields, rendering, params }: ImageProps): JSX.Element => (
   <div className="image">
-    <Image fields={fields} rendering={rendering} params={params} />
+    <SitecoreImage fields={fields} rendering={rendering} params={params} />
   </div>
 );
 

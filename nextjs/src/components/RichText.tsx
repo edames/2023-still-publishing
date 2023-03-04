@@ -1,5 +1,5 @@
 import {
-  RichText as SCRichText,
+  RichText as SitecoreRichText,
   Field,
   withDatasourceCheck,
 } from '@sitecore-jss/sitecore-jss-nextjs';
@@ -7,7 +7,7 @@ import { ComponentProps } from 'lib/component-props';
 
 type RichTextProps = ComponentProps & {
   fields: {
-    text: Field<string>;
+    Text: Field<string>;
   };
 };
 
@@ -18,7 +18,7 @@ type RichTextProps = ComponentProps & {
  */
 const RichText = ({ fields, rendering, params }: RichTextProps): JSX.Element => (
   <div className="richText">
-    <SCRichText fields={fields} rendering={rendering} params={params} />
+    <SitecoreRichText fields={fields} rendering={rendering} params={params} />
   </div>
 );
 

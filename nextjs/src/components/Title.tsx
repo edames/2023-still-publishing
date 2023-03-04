@@ -3,7 +3,7 @@ import { ComponentProps } from 'lib/component-props';
 
 type TitleProps = ComponentProps & {
   fields: {
-    title: Field<string>;
+    Title: Field<string>;
   };
 };
 
@@ -14,7 +14,7 @@ type TitleProps = ComponentProps & {
  */
 const Title = ({ fields }: TitleProps): JSX.Element => (
   <div className="titleBlock">
-    <Text tag="h2" className="contentTitle" field={fields.title} />
+    <Text tag="h2" className="contentTitle" field={fields.Title} />
   </div>
 );
 
